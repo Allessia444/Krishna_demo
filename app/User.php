@@ -19,6 +19,34 @@ class User extends Authenticatable
         'name', 'email', 'password','middle_name','last_name','city','state','country','dob','address','hobby','gender'
     ];
 
+    public function age() {
+        return $this->dob->diffInYears(\Carbon::now());
+    }
+
+    public function getDobDateAttribute($value)
+    {
+        return date("d-m-Y", strtotime($value));
+    }
+
+    public function setDobDateAttribute($value)
+    {
+        $this->attributes['dob'] = date("Y-m-d", strtotime($value));
+    }
+    public function department()
+    {
+        return $this->belongsTo('App\Department','department_id');
+    }
+    public function designation()
+    {
+        return $this->belongsTo('App\Designation','designation_id');
+    }
+    public function user_profile()
+    {
+        return $this->hasOne('App\UserProfile');
+    }
+
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
