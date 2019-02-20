@@ -37,7 +37,7 @@
 				{!! Former::text('middle_name')->placeholder('Middle Name')->label('Middle Name')->value($user->middle_name) !!}
 				{!! Former::text('last_name')->placeholder('Last Name')->label('Last Name') !!}
 				
-				 <div class="form-group">
+				 {{-- <div class="form-group">
                         <label>Photo</label>
                         <div class="clearfix" id="Photo_PreviewDiv">
                             <span></span>
@@ -60,9 +60,9 @@
 				{!! Former::text('zipcode')->placeholder('Zip Code')->label('Zip Code')->value($user->user_profile ? $user->user_profile->zipcode : '-') !!}
 				{!! Former::text('pan_number')->placeholder('Pan Number')->label('Pan Number')->value($user->user_profile ? $user->user_profile->pan_number : '-') !!}
 				{!! Former::text('management_level')->placeholder('Level of Management')->label('Level of Management')->value($user->user_profile ? $user->user_profile->management_level : '-') !!}
-				{!! Former::text('join_date')->class("form-control date-picker")->placeholder('Date Of Birth')->readonly()->label('Join Date')->value($user->user_profile ? $user->user_profile->join_date : '-') !!}
+				{!! Former::text('join_date')->class("form-control date-picker")->placeholder('Date Of Birth')->readonly()->label('Join Date')->value($user->user_profile ? $user->user_profile->join_date : '-') !!} --}}
 
-				 <div class="form-group">
+				{{--  <div class="form-group">
                         <label>File</label>
                         <div class="clearfix" id="PreviewDiv">
                             <span></span>
@@ -82,7 +82,7 @@
 					{!! Former::text('website')->placeholder('website')->label('website')->value($user->user_profile ? $user->user_profile->website : '-') !!}
 					{!! Former::text('skype')->placeholder('skype')->label('skype')->value($user->user_profile ? $user->user_profile->skype : '-') !!}
 					{!! Former::text('linkedin')->placeholder('linkedin')->label('linkedin')->value($user->user_profile ? $user->user_profile->linkedin : '-') !!}
-					{!! Former::text('twitter')->placeholder('twitter')->label('twitter')->value($user->user_profile ? $user->user_profile->twitter : '-') !!}
+					{!! Former::text('twitter')->placeholder('twitter')->label('twitter')->value($user->user_profile ? $user->user_profile->twitter : '-') !!} --}}
 				{{-- <div class="col-lg-12 col-sm-12">
 					<label class=""form-control"">Gender :</label>
 					<div class="custom-control">
@@ -90,12 +90,12 @@
 						<input type="radio" name="gender" class="with-gap" value="{!! $user->user_profile->gender == 'female' ? 'selected' : '' !!}">Female
 					</div>
 				</div> --}}
-				{!! Former::text('dob')->class("form-control date-picker")->placeholder('Date Of Birth')->readonly()->label('Date Of Birth')->value($user->user_profile ? $user->user_profile->dob : '-') !!}
+				{{-- {!! Former::text('dob')->class("form-control date-picker")->placeholder('Date Of Birth')->readonly()->label('Date Of Birth')->value($user->user_profile ? $user->user_profile->dob : '-') !!}
 				{!! Former::textarea('hobby')->placeholder('Hobby')->label('Hobby')->value($user->user_profile ? $user->user_profile->hobby : '-') !!}
 				{!! Former::text('city')->placeholder('City')->label('City')->value($user->user_profile ? $user->user_profile->city : '-') !!}
 				{!! Former::text('state')->placeholder('State')->label('State')->value($user->user_profile ? $user->user_profile->state : '-') !!}
-				{!! Former::text('country')->placeholder('Country')->label('Country')->value($user->user_profile ? $user->user_profile->country : '-') !!}
-                <div class="col-lg-12 col-sm-12">
+				{!! Former::text('country')->placeholder('Country')->label('Country')->value($user->user_profile ? $user->user_profile->country : '-') !!} --}}
+               {{--  <div class="col-lg-12 col-sm-12">
                     <input type="hidden" name="team_lied" value="0">
                     <input type="checkbox" name="team_lied" value="1">
                     <label>Are you team lead ?</label>
@@ -104,11 +104,108 @@
 					<input type="hidden" name="team_lied" value="0">
 					<input type="checkbox" name="team_lied" value="1">
 					<label>Active</label>
-				</div>                    
+				</div>            --}}         
 				{!! Former::submit('Save') !!}
 				{!! Former::close() !!}
 			</div>
 		</div>
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript" src="{!! asset('/js/plupload.full.min.js') !!}"></script>
+<script>
+ $(document).ready(function() {
+    		var student_uploader1 = new plupload.Uploader({
+                runtimes : 'html5,flash,silverlight,html4',
+                browse_button : 'pickfiles',
+                container: document.getElementById('container'),
+                url : "{{ asset('plupload/upload.php') }}",
+                multi_selection:true, 
+                    filters : {
+                            max_file_size : '10mb',
+                            mime_types: [
+                                {title : "Image files", extensions : "jpg,gif,png"},
+                            ]
+                    },
+                flash_swf_url : "{{ asset('plupload/Moxie.swf') }}",
+                silverlight_xap_url : "{{asset('plupload/Moxie.xap')}}",
+                init: {
+                    PostInit: function() {
+                        document.getElementById('attach_list').innerHTML = '';
+                    },
+                    FilesAdded: function(up, files) {
+                        student_uploader1.start();
+                        jQuery('#loading').show();
+                    },
+                    FileUploaded: function(up,file) {
+                        var input = document.createElement("input");
+                        input.type = "hidden";
+                        input.name = "attach";
+                        input.value = file.name;
+                        $(input).appendTo("#container");
+                    },
+                    UploadComplete: function(up, files){
+                        var tmp_url = '{!! asset('/tmp/') !!}';
+                        $('#PreviewDiv >img').remove();
+                        $('#PreviewDiv >input').remove();
+                        plupload.each(files, function(file) {                     
+                            $('#PreviewDiv').append("<img src='"+tmp_url +"/"+ file.name+"' id='preview' height='100px' width='100px'/>");
+                        });
+                        jQuery('#loading').hide();
+                    },
+                    Error: function(up, err) {
+                        alert(err.message);
+                    }
+                }
+            });
+            student_uploader1.init();
+
+        var student_uploader = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight,html4',
+            browse_button : 'photo_pickfiles',
+            container: document.getElementById('photo_container'),
+            url : "{{ asset('plupload/upload.php') }}",
+            multi_selection:true, 
+                filters : {
+                        max_file_size : '10mb',
+                        mime_types: [
+                            {title : "Image files", extensions : "jpg,gif,png"},
+                        ]
+                },
+            flash_swf_url : "{{ asset('plupload/Moxie.swf') }}",
+            silverlight_xap_url : "{{asset('plupload/Moxie.xap')}}",
+            init: {
+                PostInit: function() {
+                    document.getElementById('photo_list').innerHTML = '';
+                },
+                FilesAdded: function(up, files) {
+                    student_uploader.start();
+                    jQuery('#loading').show();
+                },
+                FileUploaded: function(up,file) {
+                    var input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = "photo";
+                    input.value = file.name;
+                    $(input).appendTo("#photo_container");
+                },
+                UploadComplete: function(up, files){
+                    var tmp_url = '{!! asset('/tmp/') !!}';
+                    $('#Photo_PreviewDiv >img').remove();
+                    $('#Photo_PreviewDiv >input').remove();
+                    plupload.each(files, function(file) {                     
+                        $('#Photo_PreviewDiv').append("<img src='"+tmp_url +"/"+ file.name+"' id='preview' height='100px' width='100px'/>");
+                    });
+                    jQuery('#loading').hide();
+                },
+                Error: function(up, err) {
+                    alert(err.message);
+                }
+            }
+        });
+        student_uploader.init();         
+});
+
+</script>
 @endsection

@@ -9,9 +9,7 @@ Route::get('/blog_list/{id}', 'DashboardController@blog_view')->name('blog_view'
 
 Route::group(['middleware'=>['auth'],'prefix'=>'admin',], function(){ 
 
-Route::get('/', function () {
-return view('index');
-})->name('home');
+Route::get('/', 'HomeController@home')->name('home');
 
 Route::resource('users','UsersController');
 Route::get('users_profile','UsersController@profile')->name('profile');
@@ -29,6 +27,7 @@ Route::resource('/clients', 'ClientsController');
 Route::resource('users.experiences','UserExperiencesController');
 Route::resource('blogs','UserBlogsController');
 Route::resource('blog_categories','BlogCategoriesController');
+Route::resource('tasks','TasksController');
 
 });
 

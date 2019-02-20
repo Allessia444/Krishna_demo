@@ -36,8 +36,7 @@
 				{!! Former::text('name')->placeholder('User Name')->label('Name') !!}
 				{!! Former::text('middle_name')->placeholder('Middle Name')->label('Middle Name') !!}
 				{!! Former::text('last_name')->placeholder('Last Name')->label('Last Name') !!}
-				
-				 <div class="form-group">
+                 	 <div class="form-group">
                         <label>Photo</label>
                         <div class="clearfix" id="Photo_PreviewDiv">
                             <span></span>

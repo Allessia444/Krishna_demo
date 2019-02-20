@@ -89,6 +89,7 @@
 								<th class="table-plus datatable-nosort">Blog Name</th>
 								<th>Blog Category Name</th>
 								<th>Description</th>
+								<th class="datatable-nosort">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,6 +98,22 @@
 								<td class="table-plus">{!! $blog->name !!}</td>
 								<td>{!! $blog->blog_category_id !!}</td>
 								<td>{!! $blog->description !!}</td>
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="fa fa-ellipsis-h"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="{!!route('blogs.show',['id'=>$blog->id])!!}"><i class="fa fa-eye"></i> View</a>
+											<a class="dropdown-item" href="{!!route('blogs.edit',['id'=>$blog->id])!!}"><i class="fa fa-pencil"></i> Edit</a>
+											<form action="{{route('blogs.destroy',$blog->id)}}" method="POST">
+											@method('DELETE')
+											@csrf
+											<button class="dropdown-item"  type="submit"><i class="fa fa-trash"></i>Delete</button>        
+											</form>
+										</div>
+									</div>
+								</td>
 							</tr>
 							@endforeach
 						</tbody>
