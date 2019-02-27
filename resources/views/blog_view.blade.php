@@ -11,7 +11,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.php">Home</a></li>
+									<li class="breadcrumb-item"><a href="{!! route('welcome') !!}">Home</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Blog Detail</li>
 								</ol>
 							</nav>
@@ -24,7 +24,7 @@
 							<div class="col-md-8 col-sm-12">
 								<div class="blog-detail mb-30">
 									<div class="blog-img">
-										<img src="{!! $blog->photo_url('front') !!}" alt="">
+										<img src="{!! $blog->photo_url() !!}" alt="">
 									</div>
 									<div class="blog-caption">
 										<h4 class="mb-10">{!! $blog->name !!}</h4>

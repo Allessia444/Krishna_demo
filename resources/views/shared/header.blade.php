@@ -3,7 +3,7 @@
 	<div class="header-right">
 		<div class="brand-logo">
 			<a href="index.php">
-				<img src="/logo.png" alt="" class="mobile-logo">
+				<img src="/src/images/logo.png" alt="" class="mobile-logo">
 			</a>
 		</div>
 		<div class="menu-icon">

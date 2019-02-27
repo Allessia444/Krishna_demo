@@ -11,7 +11,7 @@
 						</div>
 						<nav aria-label="breadcrumb" role="navigation">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.php">Home</a></li>
+								<li class="breadcrumb-item"><a href="{!! route('welcome') !!}">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Blog</li>
 							</ol>
 						</nav>
@@ -36,6 +36,7 @@
 												<div class="blog-caption">
 													<h4><a href="#">{!! $blog->name !!}</a></h4>
 													<div class="blog-by">
+														<p><strong>{!! $blog->blog_category->name !!}</strong></p>
 														<p>{!! $blog->description !!}</p>
 														<div class="pt-10">
 															<a href="{!! route('blog_view',$blog->id) !!}" class="btn btn-outline-primary">Read More</a>
@@ -53,11 +54,9 @@
 							<div class="bg-white border-radius-4 box-shadow mb-30">
 								<h5 class="pd-20">Categories</h5>
 								<div class="list-group">
-									<a href="#" class="list-group-item d-flex align-items-center justify-content-between">HTML <span class="badge badge-primary badge-pill">7</span></a>
-									<a href="#" class="list-group-item d-flex align-items-center justify-content-between">Css <span class="badge badge-primary badge-pill">10</span></a>
-									<a href="#" class="list-group-item d-flex align-items-center justify-content-between active">Bootstrap <span class="badge badge-primary badge-pill">8</span></a>
-									<a href="#" class="list-group-item d-flex align-items-center justify-content-between">jQuery <span class="badge badge-primary badge-pill">15</span></a>
-									<a href="#" class="list-group-item d-flex align-items-center justify-content-between">Design <span class="badge badge-primary badge-pill">5</span></a>
+								@foreach($blog_categories as $blog_category)
+								<a href="{!! route('blogs',['slug' => $blog_category->slug]) !!}" class="list-group-item d-flex align-items-center justify-content-between">{!! $blog_category->name!!} <span class="badge badge-primary badge-pill">{!! $blog_category->blogs->count() !!}</span></a>
+								@endforeach
 								</div>
 							</div>
 							<div class="bg-white border-radius-4 box-shadow mb-30">

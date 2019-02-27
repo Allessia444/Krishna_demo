@@ -8,7 +8,7 @@ use Image;
 class UserProfile extends Model
 {
      protected $fillable = [
-       'photo','mobile','phone','address_1','address_2','zipcode','pan_number','management_level','join_date','attach','google','facebook','website','skype','linkedin','twitter','gender','dob','hobby','city','state','country',
+       'user_id' ,'photo','mobile','phone','address_1','address_2','zipcode','pan_number','management_level','join_date','attach','google','facebook','website','skype','linkedin','twitter','gender','dob','hobby','city','state','country',
     ];
 
     public function user()

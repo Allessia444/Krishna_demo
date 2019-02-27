@@ -43,7 +43,7 @@ class Blog extends Model
             return asset('images/default.png');
     }
 
-    public function blog_category_id()
+    public function blog_category()
     {
         return $this->belongsTo('App\BlogCategory');
     }

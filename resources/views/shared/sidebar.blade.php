@@ -1,7 +1,7 @@
 <div class="left-side-bar">
 	<div class="brand-logo">
 		<a href="index.php">
-			<img src="images/deskapp-logo.png" alt="">
+			<img src="/src/images/deskapp-logo.png" alt="">
 		</a>
 	</div>
 	<div class="menu-block customscroll">
@@ -54,11 +54,16 @@
 					</a>
 				</li>
 				<li>
+					<a href="{!! route('task_category') !!}" class="dropdown-toggle no-arrow">
+						<i class="fa fa-handshake-o"></i>Task Category   <span class="badge badge-secondary">{!! App\TaskCategory::count() !!}</span>
+					</a>
+				</li>
+				@else
+				<li>
 					<a href="{!! route('tasks.index') !!}" class="dropdown-toggle no-arrow">
 						<i class="fa fa-tasks"></i>Tasks   <span class="badge badge-secondary">{!! App\Task::count() !!}</span>
 					</a>
 				</li>
-				@else
 				<li>
 					<a href="{!! route('profile') !!}" class="dropdown-toggle no-arrow">
 						<i class="fa fa-handshake-o"></i>Profile   
